@@ -490,7 +490,7 @@ class Customer extends Admin_Controller {
 		}
 
 
-		$eq ='';
+		$eq =''; echo "hii";
 		if(isset($_SESSION['jc_search']['searches'])){
 			$qq = $_SESSION['jc_search']['searches'];
 
