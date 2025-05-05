@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Car Model"  
+		formsubtitle="" 
+		pageslug="carmodel" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"     is_export="1"
+			api_path='master/model'  
+			pg_baseurl='admin/carmodel' 
+	>  
+ 	
+ 	 
+	<list>		
+		<col label="Manufacturer" db_nm="{{%manufacturer_name%}}" ></col> 
+		<col label="Name" db_nm="{{%name%}}" ></col>		 
+		<col label="Info" db_nm="{{%info%}}" ></col>		 		 
+		  
+		 	 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+		 <field col="4" label="Manufacturer" name="manufacturer_id" type="select" required="1"   dataarr='' 
+			dataq=' SELECT id as k, name as v from car_manufacturer ORDER BY id DESC'      />
+		<field col="4" label="Name" name="name" type="text" required="1" maxlength="20"   />
+		<field col="12" label="Info" name="info" type="textarea" required="1"   />
+		
+		<field col="12" label="Thumbnail" required="0" upld_base_path="uploads/fuel/"  name="thumb" type="slimcrop" img_w="600" img_h="600" box_w="200" box_h="200"   /> 
+		 
+
+
+	</form>    
+</module> 

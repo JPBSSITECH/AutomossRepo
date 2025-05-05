@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Amenities"  
+		formsubtitle="" 
+		pageslug="amenity" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='amenity'  
+			pg_baseurl='admin/amenity' 
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%name%}}" ></col>		 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 	 			
+		 
+
+		<field col="4" label="Name" name="name" type="text" required="1" maxlength="20"   />
+		 
+		 
+
+
+
+	</form>    
+</module> 

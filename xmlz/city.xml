@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="City"  
+		formsubtitle="" 
+		pageslug="city" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/city'  
+			pg_baseurl='admin/city' 
+	>  
+ 	
+ 	 
+	<list>		 
+		<col label="State" db_nm="{{%state_name%}}" ></col>		 
+		<col label="City" db_nm="{{%name%}}" ></col>		 
+		  
+		 	 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+		<field col="4" label="State" name="state_id" type="select" required="1"   dataarr='' 
+			dataq=' SELECT id as k, name as v from state ORDER BY id DESC'      />
+		<field col="4" label="City" name="name" type="text" required="1" maxlength="120"  class_nm="urlmaker_source" id_nm="anyid1"  />
+		<field col="4" label="City URL" name="urlslug" type="text" required="1" maxlength="120" class_nm="urlmaker_dest" id_nm="anyid1_url_dest"   />
+		 
+
+		 
+
+
+	</form>    
+</module> 

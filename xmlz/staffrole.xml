@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Staff Role"  
+		formsubtitle="" 
+		pageslug="staffrole" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/staffrole'  
+			pg_baseurl='admin/staffrole' 
+	>  
+ 	
+ 	 
+	<list>	 	 
+		  
+		<col label="Designnation" db_nm="{{%name%}} " ></col>		 
+		  
+		 	 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 	 
+		 
+		 <actions>
+		 	<item class_nm="btn btn-warning btn-sm" label="User Role" url_path="userrole" db_nm="{{%id%}}" ></item>		 	 
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+		 
+		<field col="4" label="Designnation" name="name" type="text" required="1" maxlength="20"   />
+		 
+
+
+	</form>    
+</module>  

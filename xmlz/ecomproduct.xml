@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Ecom Product"  
+		formsubtitle="" 
+		pageslug="ecomproduct" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/ecomproduct'  
+			pg_baseurl='admin/ecomproduct' 
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%name%}}" ></col>
+		<col label="Product Info" db_nm="{{%product_info%}}" ></col>	
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 <field col="6" label="Name" name="name" type="text" required="1" maxlength="120"  class_nm="urlmaker_source" id_nm="anyid1"  />
+
+		  <field col="6" label="Name URL" name="urlslug" type="text" required="0" maxlength="120" class_nm="urlmaker_dest" id_nm="anyid1_url_dest"   />	
+
+		  <field col="6" label="Category" name="cat_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from ecom_category ORDER BY id DESC'      /> 
+
+		  <field col="6" label="Brand" name="brand_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from ecom_brand ORDER BY id DESC'      />	 
+
+			<field col="6" label="Car Manufacture" name="car_manufacturer_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from car_manufacturer ORDER BY id DESC'      />
+
+		  <field col="6" label="Car Model" name="car_model_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from car_model ORDER BY id DESC'      />
+
+		  <field col="6" label="Fuel Type" name="fuel_type_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from fuel_type ORDER BY id DESC'      />
+
+			<field col="6" label="Transmission" name="transmission" type="select" required="0" 
+       dataarr='{"manual":"Manual","automatic":"Automatic"}' />
+
+       <field col="12" label="Product Info" name="product_info" type="textarea" required="0"  class_nm="ckeditor"   />
+
+		  
+
+		  <field col="6" label="Thumbnail" required="0" upld_base_path="uploads/developers/"  name="thumb" type="slimcrop" img_w="600" img_h="600" box_w="200" box_h="200"   />  
+
+		  <field col="6" label="Banner" required="0" upld_base_path="uploads/developers/"  name="banner" type="slimcrop" img_w="600" img_h="600" box_w="200" box_h="200"   />  
+
+		  <field col="3" label="Pic 1" required="0" upld_base_path="uploads/developers/"  name="pic1" type="slimcrop" img_w="400" img_h="400" box_w="200" box_h="200"   />  
+
+		  <field col="3" label="Pic 2" required="0" upld_base_path="uploads/developers/"  name="pic2" type="slimcrop" img_w="400" img_h="400" box_w="200" box_h="200"   />  
+
+		  <field col="3" label="Pic 3" required="0" upld_base_path="uploads/developers/"  name="pic3" type="slimcrop" img_w="400" img_h="400" box_w="200" box_h="200"   />  
+
+		  <field col="3" label="Pic 4" required="0" upld_base_path="uploads/developers/"  name="pic4" type="slimcrop" img_w="400" img_h="400" box_w="200" box_h="200"   />  
+		 	 			
+		 
+		   
+		  <field name="is_master" treat="1" treat_typ="predefined" predefined_value="1" hide_in_edit="1" hide_in_add="1" skip_in_update="1"    />
+		 
+		  
+
+
+
+
+	</form>    
+</module> 

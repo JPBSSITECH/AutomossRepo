@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Customer"  
+		formsubtitle="" 
+		pageslug="customer" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  is_daterange="1" is_export="1"
+			api_path='admin/customer'  
+			pg_baseurl='admin/customer' 
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%fname%}} {{%mname%}} {{%lname%}}" ></col>
+		<col label="Email" db_nm="{{%email%}}" ></col>
+		<col label="Phone" db_nm="{{%phone%}}" ></col>
+		<col label="Address" db_nm="{{%address%}}"></col>		 
+		<col label="Created On " db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 	 			
+		 
+
+		<field col="4" label="First Name" name="fname" type="text" required="1" maxlength="50"  />
+		<field col="4" label="Middle Name" name="mname" type="text" required="0" maxlength="50"   />
+		<field col="4" label="Last Name" name="lname" type="text" required="1" maxlength="50"   />
+
+
+		<field col="4" label="Email" name="email" type="email" required="1" maxlength="50"   />
+		<field col="4" label="Phone" name="phone" type="phone" required="1"    />
+
+
+
+		<!-- <field col="4" label="Password" name="password" type="password" required="1" maxlength="50"  hide_in_edit="1"  />  -->
+
+
+
+
+
+		 <field col="4" label="City" name="city_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from city ORDER BY id DESC'      />
+
+			<field col="8" label="Address" name="address" type="textarea" required="0" maxlength="100"   />
+			<field col="4" label="Zip" name="zip" type="zipcode" required="0"    /> 
+			<!-- <field col="4" label="Agency Name" name="agency_name" type="text" required="0" maxlength="100"   />
+			<field col="4" label="Agency Phone" name="agency_phone" type="phone" required="0"   />
+			<field col="4" label="Agency Email" name="agency_email" type="text" required="0" maxlength="160"   /> 
+			<field col="4" label="Agency Address" name="agency_address" type="textarea" required="0" maxlength="100"   /> -->
+
+
+		 
+		<field col="12" label="Thumbnail"   upld_base_path="uploads/customer/" required="0"  name="thumb" type="slimcrop" img_w="600" img_h="600" box_w="200" box_h="200"   /> 
+
+
+		
+
+
+
+
+	</form>    
+</module> 

@@ -1,0 +1,495 @@
+
+
+      body {
+        overflow-x: hidden;
+        font-family: Arial, sans-serif;
+        background-color: rgb(233 229 213);
+      }
+      .sidebar {
+        /* height: 100vh; */
+        /* background-color: #f4f4f4; */
+        background: linear-gradient(to bottom, black, red);
+        transition: width 0.3s;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        transition: width 0.3s;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      
+      }
+      .sidebar.collapsed {
+        width: 80px;
+      }
+      .collapsed .sidebar-logo {
+        height: 70px;
+        padding: 10px 0;
+      }
+      .sidebar.expanded {
+        width: 250px;
+      }
+      .sidebar .sidebar-item {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .sidebar .sidebar-item:hover {
+        background-color: #ff0000;
+      }
+      .sidebar .sidebar-item.active {
+        background-color: #ff0000;
+      }
+   
+      .sidebar .sidebar-item .icon {
+        font-size: 1.5rem;
+        color: #fff;
+      }
+      .sidebar .sidebar-item .text {
+        margin-left: 10px;
+        display: inline-block;
+        transition: opacity 0.3s;
+        color: white;
+      }
+      .sidebar.collapsed .sidebar-item .text {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .content {
+        /* margin-left: 250px; */
+        transition: margin-left 0.3s;
+        /* padding: 20px; */
+        background-color: #fff;
+        min-height: 100vh;
+        width: 100%;
+      }
+      .content.collapsed {
+        /* margin-left: 80px; */
+      }
+      .header {
+        /* display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff; */
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        /* background: black; */
+        background: url(carbg2.png);
+        background-size: contain;
+        height: 140px;
+        position: relative;
+      }
+      .header .profile {
+        display: flex;
+        align-items: center;
+        z-index: 6;
+        position: absolute;
+        bottom: -30%;
+      }
+      .header .profile span {
+        color: white;
+        margin-bottom: 15%;
+      }
+      .header .profile img {
+        border-radius: 50%;
+        margin-right: 10px;
+        height: 100px;
+        width: 100px;
+
+        border: 3px solid #dcdcdc;
+      }
+      .bookshelf {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .book-card {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 30%;
+        text-align: center;
+      }
+      .book-card img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      .dashboard_card {
+        margin: 2%;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 10px;
+      }
+      .toggle-button {
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: inline-block;
+        color: white;
+      }
+      .inner_content {
+        padding: 20px;
+        margin-top: 4%;
+      }
+      .ml-4 {
+        margin-left: 1rem;
+      }
+      .header .shape-image {
+        position: absolute;
+        top: 0px;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.9;
+      }
+
+      .card--1 .card__img,
+      .card--1 .card__img--hover {
+        background-image: url("https://wheelforcecentre.com/wp-content/uploads/2022/10/Where-I-can-find-best-luxury-car-repair-services.jpg");
+      }
+      .card__like {
+        width: 18px;
+      }
+
+      .card__clock {
+        width: 15px;
+        vertical-align: middle;
+        fill: #ad7d52;
+      }
+      .card__time {
+        font-size: 12px;
+        color: #ad7d52;
+        vertical-align: middle;
+        margin-left: 5px;
+      }
+
+      .card__clock-info {
+        float: right;
+      }
+
+      .card__img {
+        visibility: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 140px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+
+      .card__info-hover {
+        position: absolute;
+        padding: 16px;
+        width: 100%;
+        opacity: 0;
+        top: 0;
+      }
+
+      .card__img--hover {
+        transition: 0.2s all ease-out;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        position: absolute;
+        height: 235px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        top: 0;
+      }
+      .subscription_card {
+        margin-right: 25px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+        background-color: #fff;
+        width: 100%;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+      }
+      .subscription_card:hover {
+        box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+        transform: scale(1.1, 1.1);
+      }
+
+      .card__info {
+        z-index: 2;
+        background-color: #fff;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        padding: 16px 24px 24px 24px;
+      }
+
+      .card__category {
+        font-family: "Raleway", sans-serif;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 2px;
+        font-weight: 500;
+        color: #868686;
+      }
+
+      .card__title {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        font-family: "Roboto Slab", serif;
+        font-size: 12px;
+      }
+
+      .card__by {
+        font-size: 12px;
+        font-family: "Raleway", sans-serif;
+        font-weight: 500;
+      }
+
+      .card__author {
+        font-weight: 600;
+        text-decoration: none;
+        color: #ad7d52;
+      }
+
+      .subscription_card:hover .card__img--hover {
+        height: 100%;
+        opacity: 0.3;
+      }
+
+      .subscription_card:hover .card__info {
+        background-color: transparent;
+        position: relative;
+      }
+
+      .subscription_card:hover .card__info-hover {
+        opacity: 1;
+      }
+
+      .blue {
+        color: #185875;
+      }
+      .yellow {
+        color: #fff842;
+      }
+
+      .table_container th h1 {
+        font-weight: bold;
+        font-size: 1em;
+        text-align: left;
+        color: #ffffff;
+      }
+
+      .table_container td {
+        font-weight: normal;
+        font-size: 1em;
+        -webkit-box-shadow: 0 2px 2px -2px #0e1119;
+        -moz-box-shadow: 0 2px 2px -2px #0e1119;
+        box-shadow: 0 2px 2px -2px #0e1119;
+        color: #dcdcdc;
+      }
+
+      .table_container {
+        text-align: left;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 auto;
+        display: table;
+        padding: 0 0 8em 0;
+      }
+
+      .table_container td,
+      .table_container th {
+        padding-bottom: 2%;
+        padding-top: 2%;
+        padding-left: 2%;
+      }
+
+      .table_container tr:nth-child(odd) {
+        background-color: #323c50;
+      }
+
+      .table_container tr:nth-child(even) {
+        background-color: #2c3446;
+      }
+
+      .table_container th {
+        background-color: #1f2739;
+      }
+
+      .table_container td:first-child {
+        color: #fb667a;
+      }
+
+      .table_container tr:hover {
+        background-color: #464a52;
+        -webkit-box-shadow: 0 6px 6px -6px #0e1119;
+        -moz-box-shadow: 0 6px 6px -6px #0e1119;
+        box-shadow: 0 6px 6px -6px #0e1119;
+      }
+
+      .table_container td:hover {
+        background-color: #fff842;
+        color: #403e10;
+        font-weight: bold;
+
+        box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
+          #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+        transform: translate3d(6px, -6px, 0);
+
+        transition-delay: 0s;
+        transition-duration: 0.4s;
+        transition-property: all;
+        transition-timing-function: line;
+      }
+
+      @media (max-width: 800px) {
+        .table_container td:nth-child(4),
+        .table_container th:nth-child(4) {
+          display: none;
+        }
+      }
+      .count_card {
+        margin: 0 0 20px 0;
+        padding: 10px;
+        width: 100%;
+        min-height: 100px;
+        display: grid;
+        /* grid-template-rows: 20px 50px 1fr 50px; */
+        border-radius: 10px;
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+        transition: all 0.2s;
+      }
+      .count_card:hover {
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+        transform: scale(1.01);
+      }
+      .count_card .card__link,
+      .count_card .card__icon {
+        position: relative;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .count_card .card__link::after {
+        position: absolute;
+        top: 25px;
+        left: 0;
+        content: "";
+        width: 0%;
+        height: 3px;
+        background-color: rgba(255, 255, 255, 0.6);
+        transition: all 0.5s;
+      }
+
+      .count_card .card__link:hover::after {
+        width: 100%;
+      }
+
+      .count_card .card__icon {
+        grid-row: 1/2;
+        font-size: 30px;
+      }
+
+      .count_card .card__title {
+        grid-row: 2/3;
+        font-weight: 400;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .count_card {
+        grid-row: 4/5;
+        align-self: center;
+      }
+      .count_card_pink {
+        background: radial-gradient(#fbc1cc, #fa99b2);
+      }
+      .count_card_blue {
+        background: radial-gradient(#60acfd, #27a8ff);
+      }
+      .count_card_orange {
+        background: radial-gradient(#fdd060, #ff9b05);
+      }
+      .count_card_green {
+        background: radial-gradient(#ff8585, #4e0000);
+      }
+      .card__count {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff5733;
+        margin-bottom: 0;
+      }
+      .sidebar-logo {
+        height: 100px;
+        padding: 10px 0;
+      }
+      .sidebar-logo img {
+        height: 100%;
+        width: 100%;
+      }
+
+      .sidebar.collapsed .sidebar-item .text {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .sidebar-content {
+        margin-top: 10%;
+      }
+      .card__rating {
+        font-size: 1.5rem;
+        color: #ffcc00;
+        margin-bottom: 0;
+      }
+
+      .card__rating .star-rating {
+        display: inline-block;
+      }
+
+      .card__rating .star-rating i {
+        margin-right: 2px;
+        font-size: 13px;
+      }
+      .book-reviews table {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+
+      .dashboard_title h4 {
+        display: inline-block;
+        position: relative;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .dashboard_title h4::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 20%;
+        height: 2px;
+        background-color: #ffb100;
+        transition: width 0.3s ease;
+      }
+
+      .dashboard_title h4:hover::after {
+        width: 100%;
+      }
+      .live--btn {
+        position: fixed;
+        bottom: 280px;
+        right: 0;
+        display: flex
+    ;
+        align-items: center;
+        background-color: #ff2700;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px 0 0 30px !important;
+        font-size: 16px;
+        border: 2px solid white;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        z-index: 999;
+    }

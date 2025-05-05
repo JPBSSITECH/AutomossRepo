@@ -1,0 +1,161 @@
+ 
+    /* Custom styles for the sidebar */
+    .sidebar {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 250px;
+        background-color: #2E2A2A;
+        color: white;
+        padding-top: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar a {
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        display: block;
+        border-bottom: 1px dashed #726767;
+        border-top: 1px dashed #403a3a;  margin-bottom: 3px;
+    }
+
+    .sidebar a:hover {
+        background-color: #c23200;
+    }
+
+    .sidebar .active {
+        background-color: #c23200;  /* Highlight the active menu item */
+    }
+
+    .sidebar.closed {
+        transform: translateX(-250px);
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.3s ease; background: #f2f2f2;   min-height: 630px;
+    }
+
+    .main-content.full-width {
+        margin-left: 0;
+    }
+
+    .toggle-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+    }
+
+    /* Submenu Styling */
+    .submenu {
+        display: none;
+        list-style-type: none;
+        padding-left: 20px;
+        background-color: #2E2A2A;
+    }
+
+    .submenu a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .submenu.open {
+        display: block;
+    }
+
+    .submenu a:hover {
+        background-color: #c23200;
+    }
+
+    .container-fluid {
+        padding-left: 0;
+    }
+ 
+
+
+
+
+.product__card--price {
+    display: flex;
+    flex-direction: column;
+}
+
+.product__card--price span {
+    margin: 5px 0;
+}
+
+.product__card--price .current__price,
+.product__card--price .old__price {
+    font-weight: bold;
+}
+.single__product--action {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-end; 
+    height: 100%; 
+}
+  .card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+  }
+
+  .card {
+    border: none;
+  }
+
+  .col-md-3 {
+    margin-bottom: 15px;
+  }
+  /* Apply this to the entire card */
+/*.categories__card--style3 {
+    border-radius: 15px;  
+    overflow: hidden;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+}*/
+
+/* Make the images round */
+.categories__thumbnail--img {
+    border-radius: 50%; /* Rounds the image */
+    width: 150px; /* Set a fixed width */
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image is covered in the circular shape without stretching */
+}
+
+/* Apply this to the image */
+.categories__thumbnail--img {
+    border-radius: 50%;  /* This makes the image circular */
+    width: 90px;  /* Set the size of the image */
+    height: 90px; /* Ensure the height and width are equal for a perfect circle */
+    object-fit: cover; /* Ensures the image covers the circle without stretching */
+    border: 5px solid #d3d3d3;
+    align-items: center;/* Adds a round border with a blue color (change the color as needed) */
+}
+
+/* Optional: Container settings */
+.categories__thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    width: 90px; /* Same size as the image */
+    height: 90px; /* Same size as the image */
+    margin:auto;
+}
+.shadow_box{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.shadow_box:hover{
+        border: 2px solid #f00;
+}

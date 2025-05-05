@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Features"  
+		formsubtitle="" 
+		pageslug="features" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/features'  
+			pg_baseurl='admin/features' 
+	>  
+ 	
+ 	 
+	<list>		 
+		<col label="Feature Category" db_nm="{{%cat_nm%}}" ></col>		 
+		<col label="Name" db_nm="{{%name%}}" ></col>		 
+		  
+		 	 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+		<field col="4" label="Category" name="cat_id" type="select" required="1"   dataarr='' 
+			dataq=' SELECT id as k, name as v from feature_category ORDER BY id DESC'      />
+		<field col="4" label="Feature Name" name="name" type="text" required="1" maxlength="50"   />
+		 
+
+
+	</form>    
+</module> 

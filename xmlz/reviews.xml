@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Reviews"  
+		formsubtitle="" 
+		pageslug="reviews" 
+			primary="id" perpg_limit="10"  addbtn="0"   delbtn="1" editbtn="0"   issearch="1"   is_daterange="1" is_export="1"
+			api_path='master/reviews'  
+			pg_baseurl='admin/reviews'  
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%cust_name%}}" ></col>
+		<col label="Info" db_nm="{{%cust_designation%}}" ></col>
+		<col label="Review" db_nm="{{%review_text%}}" ></col>
+		<col label="Rating" db_nm="{{%rating%}}" ></col>
+		<col label="Garage" db_nm="{{%garage_name%}}"></col>		 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 	 			
+		 
+
+		<field col="4" label="Name" name="name" type="text" required="1" maxlength="20" class_nm="urlmaker_source" id_nm="anyid1"  />
+		<field col="4" label="URL" name="urlslug" type="text" required="1"  class_nm="urlmaker_dest" id_nm="anyid1_url_dest"  />
+		 
+		<field col="12" label="Thumbnail" required="1" upld_base_path="uploads/developers/"  name="thumb" type="slimcrop" img_w="1024" img_h="760" box_w="200" box_h="150"   /> 
+
+
+		<field col="12" label="Banner" required="1" upld_base_path="uploads/developers/"  name="banner" type="slimcrop" img_w="1000" img_h="312" box_w="200" box_h="70"   /> 
+
+
+
+
+	</form>    
+</module> 

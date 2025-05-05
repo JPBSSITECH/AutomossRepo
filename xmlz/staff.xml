@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Developers"  
+		formsubtitle="" 
+		pageslug="developers" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='brands'  
+			pg_baseurl='admin/developers' 
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%name%}}" ></col>
+		<col label="url" db_nm="{{%urlslug%}}" ></col>
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 	 			
+		 
+
+		<field col="4" label="Developer Name" name="name" type="text" required="1" maxlength="20" class_nm="urlmaker_source" id_nm="anyid1"  />
+		<field col="4" label="URL" name="urlslug" type="text" required="1"  class_nm="urlmaker_dest" id_nm="anyid1_url_dest"  />
+		 
+		<field col="12" label="Thumbnail" required="1" upld_base_path="uploads/developers/"  name="thumb" type="slimcrop" img_w="1024" img_h="760" box_w="200" box_h="150"   /> 
+
+
+		<field col="12" label="Banner" required="1" upld_base_path="uploads/developers/"  name="banner" type="slimcrop" img_w="1000" img_h="312" box_w="200" box_h="70"   /> 
+
+
+
+
+	</form>    
+</module> 

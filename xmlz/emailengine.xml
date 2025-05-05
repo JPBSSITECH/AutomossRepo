@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Email Engine"  
+		formsubtitle="" 
+		pageslug="emailengine" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/Emailengine'  
+			pg_baseurl='admin/emailengine' 
+	>  
+ 	
+ 	 
+	<list>		
+		
+		<col label="Name" db_nm="{{%name%}}" ></col>
+		<col label="Sender Email" db_nm="{{%sender_email%}}" ></col> 		 
+		<col label="Sender Name" db_nm="{{%sender_name%}}" ></col>		 		 
+		<!-- <col label="Api Key" db_nm="{{%api_key%}}" ></col>		 		  -->
+		  
+		 	 
+		<col label="Created On" db_nm="{{%created_on%}}"></col>		 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+		  
+		<field col="6" label="Name" name="name" type="text" required="1" maxlength="20"   />
+		<field col="6" label="Sender Email" name="sender_email" type="email" required="1" maxlength="20"  />
+		<field col="6" label="Sender Name" name="sender_name" type="text" required="1" maxlength="30"  />
+		<field col="6" label="Api Key" name="api_key" type="text" required="1" maxlength="100"  />
+
+		 
+		 
+
+
+	</form>    
+</module> 

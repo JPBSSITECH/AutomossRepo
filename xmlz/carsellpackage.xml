@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Car Sell Packages"  
+		formsubtitle="" 
+		pageslug="carsellpackage" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='master/carsellpackage'  
+			pg_baseurl='admin/carsellpackage' 
+	>  
+ 	
+ 	 
+	<list>		 		 
+		<col label="Name" db_nm="{{%name%}}" ></col>		 
+		  
+		 	 
+		<col label="Content" db_nm="{{%info%}}"></col>		 
+		<col label="Monthly Price" db_nm="{{%monthly_price%}}"></col>		
+		<col label="Listing Counts" db_nm="{{%listing_count%}}" ></col> 
+		 <actions>
+		 	<!-- <item label="Invoice Link" url_path="w_invoice" db_nm="id" ></item> -->
+		 </actions>
+		 
+	</list> 
+	<form >
+
+
+	 
+		<field col="4" label="Feature Name" name="name" type="text" required="1" maxlength="50"   />
+		<field col="4" label="Listing Counts" name="listing_count" type="number" required="1" maxlength="50"   />
+		<field col="4" label="Monthly Price" name="monthly_price" type="number" required="1" maxlength="50"   />
+		<field col="4" label="Quaterly Price" name="quaterly_price" type="number" required="1" maxlength="50"   />
+		<field col="4" label="Halfyerly Price" name="halfyearly_price" type="number" required="1" maxlength="50"   />
+		<field col="4" label="Yearly Price" name="yearly_price" type="number" required="1" maxlength="50"   />
+
+		<field col="12" label="Info" name="info" type="textarea" required="1"  class_nm="ckeditor"    />
+		 
+		 
+
+
+	</form>    
+</module> 

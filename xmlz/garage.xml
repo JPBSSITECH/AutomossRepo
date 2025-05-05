@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module formtitle="Garage"  
+		formsubtitle="" 
+		pageslug="garage" 
+			primary="id" perpg_limit="10"  addbtn="1"   delbtn="1" editbtn="1"   issearch="1"  
+			api_path='admin/garage'  
+			pg_baseurl='admin/garage' 
+	> 
+ 	
+ 	 
+	<list>		 
+		<col label="Name" db_nm="{{%fname%}} {{%mname%}} {{%lname%}}" ></col>
+		<col label="Email" db_nm="{{%email%}}" ></col>
+		<col label="Phone" db_nm="{{%phone%}}" ></col>
+		<col label="Address" db_nm="{{%address%}}"></col>	
+
+		 <actions>
+		 	<item class_nm="btn btn-warning btn-sm" label="View" url_path="./garage_details" db_nm="{{%uniq_id%}}" ></item>		 	 
+		 </actions>
+		 
+	</list> 
+	<form >
+
+		  
+		 	 			
+		 
+
+		<field col="4" label="First Name" name="fname" type="text" required="1" maxlength="50"  />
+		<field col="4" label="Middle Name" name="mname" type="text" required="0" maxlength="50"   />
+		<field col="4" label="Last Name" name="lname" type="text" required="1" maxlength="50"   />
+
+
+		<field col="4" label="Email" name="email" type="email" required="1" maxlength="50"   />
+		<field col="4" label="Phone" name="phone" type="number" required="1" maxlength="50"   />
+		<!-- <field col="4" label="Password" name="password" type="password" required="1" maxlength="50"   /> -->
+		 <field col="4" label="City" name="city_id" type="select" required="0"   dataarr='' 
+			dataq=' SELECT id as k, name as v from city ORDER BY id DESC'      />
+
+			<field col="4" label="Garage Package" name="garage_pack_id" type="select" required="0"   dataarr='' 
+			dataq='SELECT id as k, name as v from garage_package ORDER BY id DESC'/>
+
+			<field col="4" label="Address" name="address" type="textarea" required="0" maxlength="100"   />
+			<field col="4" label="Zip" name="zip" type="zipcode" required="1"   />
+			<field col="4" label="Garage Name" name="garage_name" type="text" required="0" maxlength="100"   />
+			<field col="4" label="Garage Phone" name="garage_phone" type="number" required="0" maxlength="20"   />
+			<field col="4" label="Garage Email" name="garage_email" type="text" required="0" maxlength="50"   />
+			<field col="4" label="Garage Address" name="garage_address" type="textarea" required="0" maxlength="100"   />
+
+
+		 
+		<!-- <field col="12" label="Thumbnail" required="0" upld_base_path="uploads/garage/thumb"  name="thumb" type="slimcrop" img_w="1024" img_h="760" box_w="200" box_h="150"   />  -->
+
+
+		
+
+
+
+
+	</form>    
+</module> 
