@@ -689,7 +689,9 @@ class Customer extends Admin_Controller {
 	// 	$this->load->view('customer/jobcard_from',$this->data);
 	// }
 
-	public function Jobcard_add(){
+
+	//commet by jagadish
+	/*public function Jobcard_add(){
 		$this->data['myid'] = $this->myid = $myid = $_SESSION['id'];
 		$this->data['mydata'] = $mydata = $this->db->query('SELECT * from customer WHERE id='.$myid)->row();
 
@@ -840,7 +842,112 @@ class Customer extends Admin_Controller {
 
 
 		$this->load->view('customer/jobcard_form2',$this->data);
+	}*/
+
+	public function Jobcard_add() {
+		$this->data['myid'] = $myid = $_SESSION['id'];
+	
+		// Fetch customer data
+		$this->data['mydata'] = $mydata = $this->db->get_where('customer', ['id' => $myid])->row();
+	
+		// Load dropdown data
+		$this->data['cc'] = $this->db->get('category')->result();
+		$this->data['city'] = $this->db->get('city')->result();
+		$this->data['car_man'] = $this->db->get_where('car_manufacturer', ['status' => 1])->result();
+		$this->data['car_model'] = $this->db->get_where('car_model', ['status' => 1])->result();
+		$this->data['fuel_type'] = $this->db->get_where('fuel_type', ['status' => 1])->result();
+	
+		// API category data
+		$apiResponse = curl_get(api_link . 'master/category');
+		$this->data['catz'] = @$apiResponse->data;
+	
+		// Form submission
+		if ($this->input->post()) {
+			$mdata = $this->input->post();
+	
+			// Final category selection logic
+			$data = $mdata;
+			unset($data['cat_id1'], $data['cat_id2'], $data['cat_id3']);
+			$data['cat_id'] = $mdata['cat_id3'] ?? $mdata['cat_id2'] ?? $mdata['cat_id1'];
+	
+			// Update customer car data if not already present
+			if (empty($mydata->car_manufacturer_id)) {
+				$this->db->update('customer', [
+					'car_manufacturer_id' => $data['car_manufacturer_id'],
+					'car_model_id' => $data['car_model_id'],
+					'car_fuel_type_id' => $data['car_fuel_type_id'],
+				], ['id' => $myid]);
+			}
+	
+			// Job card additional fields
+			$data['cust_id'] = $myid;
+			$data['transaction_id'] = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'), 0, 16);
+	
+			// Handle Slim image uploads
+			$this->handleSlimImage('thumb_img', 'thumb', $data);
+			$this->handleSlimImage('thumb_img2', 'thumb2', $data);
+	
+			// Handle file uploads
+			$data['jc_aud'] = $this->handleFileUpload('audioFile', 'audio');
+			$data['jc_vid'] = $this->handleFileUpload('videoFile', 'video');
+	
+			// Handle base64 audio/video
+			$this->handleBase64AudioVideo($data);
+	
+			// Remove unnecessary keys
+			unset($data['slim'], $data['audioFile'], $data['videoFile'], $data['recordedAudio'], $data['recordedVideo']);
+	
+			// Insert job card
+			if ($this->db->insert('job_card', $data)) {
+				$this->session->set_flashdata('success', "Data created Successfully");
+			} else {
+				$this->session->set_flashdata('error', "Error Occurs while adding data");
+			}
+	
+			redirect(base_url("customer/jobcard/"));
+		}
+	
+		// State list
+		$this->data['st'] = $this->db->get('state')->result();
+	
+		// Load form view
+		$this->load->view('customer/jobcard_form2', $this->data);
 	}
+
+	private function handleSlimImage($field, $targetKey, &$data) {
+		$image = Slim::getImages($field);
+		if ($image) {
+			$name = $image[0]['input']['name'];
+			$base64 = $image[0]['output']['data'];
+			$file = Slim::saveFile($base64, $name, 'uploads/jobcard');
+			$data[$targetKey] = base_url('uploads/jobcard/') . $file['name'];
+		}
+	}
+
+	
+	private function handleBase64AudioVideo(&$data) {
+		$this->load->helper('file');
+	
+		if ($audio = $this->input->post('recordedAudio')) {
+			$audioData = base64_decode($audio);
+			$fileName = 'recorded_' . uniqid() . '.webm';
+			$filePath = 'uploads/audio/' . $fileName;
+			if (write_file($filePath, $audioData)) {
+				$data['jc_aud'] = base_url("uploads/audio/{$fileName}");
+			}
+		}
+	
+		if ($video = $this->input->post('recordedVideo')) {
+			$fileName = 'recorded_video_' . uniqid() . '.webm';
+			$filePath = 'uploads/video/' . $fileName;
+			$videoData = base64_decode($video);
+			if (write_file($filePath, $videoData)) {
+				$data['jc_vid'] = base_url("uploads/video/{$fileName}");
+			}
+		}
+	}
+	
+	
 
 
 	private function handleFileUpload($fieldName, $type) {

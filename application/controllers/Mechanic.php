@@ -190,7 +190,7 @@ class Mechanic extends Admin_Controller {
 
     
     if ($_POST) {
-        $data = $this->input->post();
+        $data = $this->input->post(); 
         
         unset($data['slim']);
         unset($data['thumb_img']);
@@ -218,27 +218,39 @@ class Mechanic extends Admin_Controller {
 
         // Insert categories into garage_cat table
         if ($m) {
-            // Delete old categories for this garage (if any)
-            $this->db->where('garage_id', $myid);
-            $this->db->delete('garage_cat');
+            //delete those categories/services that are not checked by the garage
+			$query = $this->db->where('garage_id', $myid)->get('garage_cat');
+			$current_categories = [];
 
+			if ($query->num_rows() > 0) {
+				$current_categories = array_column($query->result_array(), 'cat_id');
+			}
+
+			$to_delete_categories = array_diff($current_categories, $categories);
+			$to_insert_categories = array_diff($categories, $current_categories);
+
+			// Delete unchecked categories
+			if (!empty($to_delete_categories)) {
+				$this->db->where('garage_id', $myid);
+				$this->db->where_in('cat_id', $to_delete_categories);
+				$this->db->delete('garage_cat');
+			}
+
+			// Insert newly checked categories
+			if (!empty($to_insert_categories)) {
+				$insert_categories = [];
+				foreach ($to_insert_categories as $category_id) {
+					$insert_categories[] = [
+						'garage_id' => $myid,
+						'cat_id' => $category_id,
+						'created_by' => $myid
+					];
+				}
+				$this->db->insert_batch('garage_cat', $insert_categories);
+			}
+			
             $this->db->where('garage_id', $myid);
 	        $this->db->delete('garage_prod_cat');
-
-            // Insert new categories into garage_cat table
-            if (!empty($categories)) {
-                $insert_categories = [];
-                foreach ($categories as $category_id) {
-                    $insert_categories[] = [
-                        'garage_id' => $myid,
-                        'cat_id' => $category_id,
-                        'created_by' => $myid, 
-                         
-                    ];
-                }
-                $this->db->insert_batch('garage_cat', $insert_categories);
-            }
-
 
 
             if (!empty($pp_categories)) {
@@ -254,13 +266,6 @@ class Mechanic extends Admin_Controller {
 	                }
 	                $this->db->insert_batch('garage_prod_cat', $insert_pp_categories);
 	        }
-
-
-
-
-
-
-
 
 
             // Success message and redirect

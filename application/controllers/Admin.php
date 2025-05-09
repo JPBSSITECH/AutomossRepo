@@ -1612,6 +1612,7 @@ public function emailengine(){
 		$this->data['cat'] = $out; 
 		$this->load->view('admin/servicecat', $this->data);
 	}
+
 	public function servicecat_add(){
 		$this->data['parent_categories'] = $this->db->query('SELECT * FROM category WHERE parent_id IS NULL ORDER BY id ASC')->result();
 		$this->data['l2_categories'] = $this->db->query('SELECT * FROM category WHERE parent_id in (select id from category where parent_id is null)  ')->result();
