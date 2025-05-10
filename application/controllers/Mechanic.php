@@ -152,7 +152,7 @@ class Mechanic extends Admin_Controller {
 	// 	$this->load->view('mechanic/editprofile',$this->data);
 	// } 
 
-	public function editprofile() {
+	public function editprofile() { //exit;
     $this->data['myid'] = $this->myid = $myid = $_SESSION['id'];
     $this->data['city'] = $city = $this->db->query('SELECT * FROM city')->result();
     $this->data['info'] = $info = $this->db->query('SELECT * FROM garage_mst WHERE id=' . $myid)->row();
