@@ -828,7 +828,7 @@
         border-radius: 0px;
     }
     .checkbox_wrapper{
-        border-left: 1px dotted #ccc;
+        /* border-left: 1px dotted #ccc; */
     }
     .checkbox_wrapper .widget_menu{
         padding: 5px 0;
@@ -840,21 +840,27 @@
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
     .first_level {
-        background: #ccc;
+        background: rgb(204 204 204 / 38%);
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
     }
-    .first_level:before{content:'-'}
+    /* .first_level:before{content:'-'} */
     .first_level > div:first-child{font-weight: bold;} 
     /* .first_level {
         background: #efe5e5;
         padding-left: 15px;
     } */
-    .second_level {
-        /* background: #efe5e5; */
-        padding-left: 15px;
+    .second_level_wrapper {
+        border-left: 1px solid #ccc;
+        margin-left: 15px;
     }
     .second_level{
         /* border-bottom:1px solid #ccc; */
         padding-bottom:10px;
+    }
+    .second_level label:before{
+        content:'-';
     }
     .third_level{
         margin-left: 15px;
@@ -948,10 +954,10 @@
                             foreach ($x as $dd) {
                                 $chkd = ($cat->id==$dd->id)?'checked':'';
                                 echo "<div class='checkbox_wrapper'>";
-                                    echo "<div class='first_level '>
+                                    echo "<label class='first_level '>
                                             <input type='checkbox' name='categories[]' value='" . $dd->id . "'     ".$chkd."   style='margin-right: 8px; accent-color: red;'> 
                                             " . $dd->name . "
-                                        </div>"; // Parent category with red checkbox
+                                        </label>"; // Parent category with red checkbox
                                     echo "<div class='second_level_wrapper'>";
                                     if (!empty($dd->child)) {
                                         foreach ($dd->child as $sub) {
