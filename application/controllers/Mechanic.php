@@ -163,7 +163,7 @@ class Mechanic extends Admin_Controller {
 
 
 		//$this->data['services'] = $dd = $this->db->query('SELECT * FROM category WHERE parent_id IS NULL')->result();
-		$this->data['services'] = $this->mechanic->getCategoryList();
+		$this->data['services'] = $this->mechanic->getCategoryList(); 
 		$this->data['pp_cc'] = $dd = $this->db->query('SELECT * FROM ecom_category WHERE parent_id IS NULL')->result();
 
 

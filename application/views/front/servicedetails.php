@@ -827,9 +827,44 @@
         padding: 0px;
         border-radius: 0px;
     }
-    .lebel_second, .third_level {
+    .checkbox_wrapper{
+        border-left: 1px dotted #ccc;
+    }
+    .checkbox_wrapper .widget_menu{
+        padding: 5px 0;
+    }
+    .checkbox_wrapper .widget_menu:hover {
+        border-bottom: 3px solid rgb(255, 0, 0);
+        border-radius: 10px;
+        padding: 5px 5px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .first_level {
+        background: #ccc;
+    }
+    .first_level:before{content:'-'}
+    .first_level > div:first-child{font-weight: bold;} 
+    /* .first_level {
         background: #efe5e5;
         padding-left: 15px;
+    } */
+    .second_level {
+        /* background: #efe5e5; */
+        padding-left: 15px;
+    }
+    .second_level{
+        /* border-bottom:1px solid #ccc; */
+        padding-bottom:10px;
+    }
+    .third_level{
+        margin-left: 15px;
+        border-left: 1px solid #ccc;
+    }
+    .third_level label:before{
+        content:'-';
+    }
+    .second_level_wrapper {
+        display: none;
     }
 </style>
 
@@ -881,8 +916,7 @@
 
 
 
-                    <div class="group-form mt-4 py-4 box_shodow border_top"
-                        style="border: 1px solid #ccc; padding: 20px">
+                    <div class="group-form mt-4 py-4 box_shodow border_top" style="border: 1px solid #ccc; padding: 20px">
                         <h2 class="widget__title h3">Price Range</h2>
 
 
@@ -905,37 +939,46 @@
 
 
 
-                    <div class="group-form mt-4 py-4 box_shodow border_top"
-                        style="border: 1px solid #ccc; padding: 20px">
+                    <div class="group-form mt-4 py-4 box_shodow border_top" style="padding: 20px">
                         <h2 class="widget__title h3">Choose Category</h2>
 
                         <?php
-                        foreach ($x as $dd) {
-                            $chkd = ($cat->id==$dd->id)?'checked':'';
-                            echo "<div style='margin: 8px 0; font-weight: bold; font-size: 16px; color: #333;'>
-                                    <input type='checkbox' name='categories[]' value='" . $dd->id . "'     ".$chkd."   style='margin-right: 8px; accent-color: red;'> 
-                                    " . $dd->name . "
-                                  </div>"; // Parent category with red checkbox
+                        if(count($x) >0){
+                           
+                            foreach ($x as $dd) {
+                                $chkd = ($cat->id==$dd->id)?'checked':'';
+                                echo "<div class='checkbox_wrapper'>";
+                                    echo "<div class='first_level '>
+                                            <input type='checkbox' name='categories[]' value='" . $dd->id . "'     ".$chkd."   style='margin-right: 8px; accent-color: red;'> 
+                                            " . $dd->name . "
+                                        </div>"; // Parent category with red checkbox
+                                    echo "<div class='second_level_wrapper'>";
+                                    if (!empty($dd->child)) {
+                                        foreach ($dd->child as $sub) {
+                                            echo "<div class='second_level checkbox_wrapper'>";
+                                                echo "<div class='widget_menu'>
+                                                        <label>
+                                                            <input type='checkbox' name='categories[]' value='" . $sub->id . "' style='margin-right: 8px; accent-color: red;'> 
+                                                            " . $sub->name . "
+                                                        </label>
+                                                    </div>";
 
-                            if (!empty($dd->child)) {
-                                echo "<div class='lebel_second'>";
-                                foreach ($dd->child as $sub) {
-                                    echo "<div class='widget_menu' style='margin: 8px 0; font-size: 16px; color: #333;'>
-                                            <input type='checkbox' name='categories[]' value='" . $sub->id . "' style='margin-right: 8px; accent-color: red;'> 
-                                            " . $sub->name . "
-                                          </div>";
-
-                                    if (!empty($sub->child)) { 
-                                        echo "<div class='lebel_third'>";
-                                        foreach ($sub->child as $ss) {
-                                            echo "<div class='widget_menu' style='margin: 8px 0; font-size: 16px; color: #333;'>
-                                                    <input type='checkbox' name='categories[]' value='" . $ss->id . "' style='margin-right: 8px; accent-color: red;'> 
-                                                    " . $ss->name . "
-                                                  </div>";
+                                                if (!empty($sub->child)) { 
+                                                    echo "<div class='third_level checkbox_wrapper'>";
+                                                    foreach ($sub->child as $ss) {
+                                                        echo "<div class='widget_menu'>
+                                                                <label>
+                                                                    <input type='checkbox' name='categories[]' value='" . $ss->id . "' style='margin-right: 8px; accent-color: red;'> 
+                                                                    " . $ss->name . "
+                                                                </label>
+                                                            </div>";
+                                                    }
+                                                    echo "</div>";
+                                                }
+                                            echo "</div>";
                                         }
-                                        echo "</div>";
                                     }
-                                }
+                                    echo "</div>";
                                 echo "</div>";
                             }
                         }
@@ -1084,4 +1127,50 @@ function updateSlider() {
 
 // Initialize slider
 updateSlider();
+$(document).ready(function() {
+    /*$('input[type="checkbox"]').change(function() {
+        // Check/uncheck all child checkboxes if the clicked checkbox has children
+        $(this).closest('.checkbox_wrapper').find('input[type="checkbox"]').prop('checked', $(this).is(':checked'));
+
+        // Now check the parent checkbox based on child status
+        updateParentCheckbox($(this));
+    });
+
+    function updateParentCheckbox($checkbox) {
+        // Find the closest parent checkbox wrapper
+        let $parentWrapper = $checkbox.closest('.lebel_second, .lebel_third').prevAll('.lebel_first').first();
+        
+        if ($parentWrapper.length) {
+            let allChecked = $parentWrapper.next().find('input[type="checkbox"]').length === 
+                             $parentWrapper.next().find('input[type="checkbox"]:checked').length;
+                             
+            $parentWrapper.find('input[type="checkbox"]').prop('checked', allChecked);
+        }
+    }*/
+
+    // Handle checkbox change event
+    $('input[type="checkbox"]').change(function() {
+        // Check if the checkbox is in the first level
+        if ($(this).closest('.first_level').length) {
+            toggleSecondLevel(this);  // Toggle second level visibility
+        }
+    });
+
+    // Initialize: Hide unchecked second level when the page loads
+    $('.first_level').find('input[type="checkbox"]').each(function() {
+        toggleSecondLevel(this);  // Apply the visibility based on the checkbox state
+    });
+});
+// Function to toggle visibility of second level
+function toggleSecondLevel(checkbox) {
+    // Find the second level wrapper inside the closest .checkbox_wrapper
+    var $secondLevelWrapper = $(checkbox).closest('.checkbox_wrapper').find('.second_level_wrapper');
+
+    // If the checkbox is checked, show second level, otherwise hide it
+    if ($(checkbox).is(':checked')) {
+        $secondLevelWrapper.show();
+    } else {
+        $secondLevelWrapper.hide();
+    }
+}
 </script>
