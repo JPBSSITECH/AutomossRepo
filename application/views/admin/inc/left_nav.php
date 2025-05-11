@@ -75,8 +75,8 @@
 
                     <li <?=($ur2=='garage')?'class="active"':''  ?> > <a href="<?=base_url('admin/garage') ?>">Garage</a></li>
                     <li <?=($ur2=='garage_package')?'class="active"':''  ?> > <a href="<?=base_url('admin/garage_package') ?>">Garage Package</a></li>
-                    <li <?=($ur2=='servicepackage')?'class="active"':''  ?> > <a href="<?=base_url('admin/servicepackage') ?>">Services (Master)</a></li>
-                    <li <?=($ur2=='servicecat')?'class="active"':''  ?> ><a href="<?=base_url('admin/servicecat') ?>">Service Category</a></li>
+                    <li <?= in_array($ur2, ['servicepackage', 'servicePackage_add']) ? 'class="active"' : '' ?>><a href="<?=base_url('admin/servicepackage') ?>">Services (Master)</a></li>
+                    <li <?= in_array($ur2, ['servicecat', 'servicecat_add']) ? 'class="active"' : '' ?>><a href="<?=base_url('admin/servicecat') ?>">Service Category Hierarchy</a></li>
 
                     <li <?=($ur2=='booking_list')?'class="active"':''  ?> ><a href="<?=base_url('admin/booking_list') ?>"><span>Booking Lists</span></a></li>
 

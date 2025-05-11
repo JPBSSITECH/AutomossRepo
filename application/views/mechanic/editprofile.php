@@ -329,19 +329,23 @@ select {
                                 <div class="row">
 
                                     <?php
-                                    foreach ($cc as $d) {
-                                        $isChecked = in_array($d->id, $selected_categories) ? 'checked' : '';
-                                    ?>
-                                    <div class="col-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input service-checkbox" type="checkbox"
-                                                id="service<?=$d->id?>" name="categories[]" value="<?=$d->id?>"
-                                                <?=$isChecked?>>
-                                            <label class="form-check-label"
-                                                for="service<?=$d->id?>"><?=$d->name?></label>
+                                    if(count($services) > 0) {
+                                        foreach ($services as $d) {
+                                            $isChecked = in_array($d->id, $selected_categories) ? 'checked' : '';
+                                        ?>
+                                        <div class="col-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input service-checkbox" type="checkbox"
+                                                    id="service<?=$d->id?>" name="categories[]" value="<?=$d->id?>"
+                                                    <?=$isChecked?>>
+                                                <label class="form-check-label"
+                                                    for="service<?=$d->id?>"><?=$d->name?></label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <?php
+                                        <?php
+                                        }
+                                    }else{
+                                        echo '<div class="col-3"><span>No services available</span></div>';
                                     }
                                     ?>
 

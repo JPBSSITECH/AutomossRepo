@@ -1551,9 +1551,25 @@ public function emailengine(){
 
 		$this->load->view('admin/servicepackage_form',$this->data);
 	}
-	public function servicepackage_delete($x){
-		$this->db->query('DELETE from category where id='.$x);
-		$this->session->set_flashdata('success','Record Deleted Successfully');
+	public function servicepackage_delete($pkg_master_id=""){ 
+		/*
+			Before deleting a service name from a package, check if and mechanic/garage has been taken this or not
+			if not taken then admin can delete it
+			* short hand query
+			$query = $this->db->get_where('package_mst', ['user_typ' => 'Garage', 'master_id' => $pkg_master_id]);
+		*/
+		$this->db->where('user_typ', 'Garage');
+		$this->db->where('master_id', $pkg_master_id);
+		$query = $this->db->get('package_mst');
+
+		if ($query->num_rows() == 0) {
+			$this->db->where('id', $pkg_master_id);
+			$this->db->delete('package_mst');
+
+			$this->session->set_flashdata('success', 'Record Deleted Successfully');
+		} else {
+			$this->session->set_flashdata('error', 'Service has already been taken by the mechanic, can\'t delete');
+		}
 		redirect(base_url('admin/servicepackage'));
 	}
 
@@ -1615,7 +1631,7 @@ public function emailengine(){
 
 	public function servicecat_add(){
 		$this->data['parent_categories'] = $this->db->query('SELECT * FROM category WHERE parent_id IS NULL ORDER BY id ASC')->result();
-		$this->data['l2_categories'] = $this->db->query('SELECT * FROM category WHERE parent_id in (select id from category where parent_id is null)  ')->result();
+		$this->data['label_two_categories'] = $this->db->query('SELECT * FROM category WHERE parent_id in (select id from category where parent_id is null)  ')->result();
 		 
 		
 

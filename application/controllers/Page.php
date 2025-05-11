@@ -151,16 +151,12 @@ class Page extends MY_Controller {
 
 		} 
 
-
-
-
-		 
-
 		//print_result($topservice);  exit;
 		 
  
 		$this->load->view('front/index',$this->data);  
 	}
+
 	public function service_details($ct_url,$caturl){
 
 		$this->data['ct'] = $ct = $this->db->query('select * from city WHERE urlslug= "'.$ct_url.'" AND status = 1')->row(); 
@@ -169,16 +165,8 @@ class Page extends MY_Controller {
 		$this->data['gg'] = $gg = curl_post(api_link . 'master/Category/list', []);
 		$this->data['x'] = $x = $gg->data;
 
-
-	 
-
-
 		$this->load->view('front/servicedetails',$this->data);
 	}
-
-
-
-
 
 
 

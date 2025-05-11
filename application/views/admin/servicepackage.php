@@ -51,7 +51,7 @@ include('inc/header.php');
                                     <tr>
                                         <th scope="col">Sl No.</th>
                                         <th scope="col">Category</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Service Name</th>
                                         <th scope="col">Info</th>
                                         <th scope="col">Package Count</th>
 

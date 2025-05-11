@@ -8,6 +8,8 @@ class Mechanic extends Admin_Controller {
 		$this->load->library('Slim'); 
 		$this->load->helper('cookie');
  
+		//load model
+		$this->load->model("mechanic_model", "mechanic");
 
 		 
 		$this->data['common']=$this->common = $cmn =  $this->db->query('SELECT * FROM common')->row();
@@ -152,134 +154,135 @@ class Mechanic extends Admin_Controller {
 	// 	$this->load->view('mechanic/editprofile',$this->data);
 	// } 
 
-	public function editprofile() { //exit;
-    $this->data['myid'] = $this->myid = $myid = $_SESSION['id'];
-    $this->data['city'] = $city = $this->db->query('SELECT * FROM city')->result();
-    $this->data['info'] = $info = $this->db->query('SELECT * FROM garage_mst WHERE id=' . $myid)->row();
-    $this->data['pack'] = $pack = $this->db->query('SELECT * FROM garage_package WHERE id=' . $info->garage_pack_id)->row();
+	public function editprofile() { 
+		$this->data['myid'] = $this->myid = $myid = $_SESSION['id'];
+		$this->data['city'] = $city = $this->db->query('SELECT * FROM city')->result();
+		$this->data['info'] = $info = $this->db->query('SELECT * FROM garage_mst WHERE id=' . $myid)->row();
+		$this->data['pack'] = $pack = $this->db->query('SELECT * FROM garage_package WHERE id=' . $info->garage_pack_id)->row();
 
 
 
-     $this->data['cc'] = $dd = $this->db->query('SELECT * FROM category WHERE parent_id IS NULL')->result();
-     $this->data['pp_cc'] = $dd = $this->db->query('SELECT * FROM ecom_category WHERE parent_id IS NULL')->result();
+		//$this->data['services'] = $dd = $this->db->query('SELECT * FROM category WHERE parent_id IS NULL')->result();
+		$this->data['services'] = $this->mechanic->getCategoryList();
+		$this->data['pp_cc'] = $dd = $this->db->query('SELECT * FROM ecom_category WHERE parent_id IS NULL')->result();
 
 
 
-    // Fetch associated categories
-    $this->data['selected_categories'] = $this->db->select('cat_id')
-        ->from('garage_cat')
-        ->where('garage_id', $myid)
-        ->get()
-        ->result_array();
+		// Fetch associated categories
+		$this->data['selected_categories'] = $this->db->select('cat_id')
+			->from('garage_cat')
+			->where('garage_id', $myid)
+			->get()
+			->result_array();
     
-    // Convert the result to a simple array of IDs
-    $this->data['selected_categories'] = array_column($this->data['selected_categories'], 'cat_id');
+		// Convert the result to a simple array of IDs
+		$this->data['selected_categories'] = array_column($this->data['selected_categories'], 'cat_id');
 
 
-    $this->data['selected_pp_categories'] = $this->db->select('cat_id')
-	        ->from('garage_prod_cat')
-	        ->where('garage_id', $myid)
-	        ->get()
-	        ->result_array();
+		$this->data['selected_pp_categories'] = $this->db->select('cat_id')
+				->from('garage_prod_cat')
+				->where('garage_id', $myid)
+				->get()
+				->result_array();
 	    // Convert the result to a simple array of IDs
-	$this->data['selected_pp_categories'] = array_column($this->data['selected_pp_categories'], 'cat_id');
+		$this->data['selected_pp_categories'] = array_column($this->data['selected_pp_categories'], 'cat_id');
 
 
 
 
 
     
-    if ($_POST) {
-        $data = $this->input->post(); 
-        
-        unset($data['slim']);
-        unset($data['thumb_img']);
-        
-        // Unset categories and store them in a separate variable
-        $categories = isset($data['categories']) ? $data['categories'] : [];
-         $pp_categories = isset($data['pp_categories']) ? $data['pp_categories'] : [];
-        unset($data['categories']); // Remove categories from $data
-        unset($data['pp_categories']); // Remove categories from $data
-
-        // Process the thumbnail image
-        $th = Slim::getImages('thumb_img');
-        $name_th = $th[0]['input']['name'];
-        if ($name_th != $info->thumb) {
-            $data_th = $th[0]['output']['data'];
-            $file_th = Slim::saveFile($data_th, $name_th, 'uploads/garage/thumb');
-            // $data['thumb'] = $file_th['name'];
-            $data['thumb'] =base_url().'uploads/garage/thumb/'.$file_th['name'];
-        }
-
-        // Update the garage_mst table
-        $data['kyc_update_on'] = date('Y-m-d H:i:s');
-        $this->db->where('id', $myid);
-        $m = $this->db->update('garage_mst', $data);
-
-        // Insert categories into garage_cat table
-        if ($m) {
-            //delete those categories/services that are not checked by the garage
-			$query = $this->db->where('garage_id', $myid)->get('garage_cat');
-			$current_categories = [];
-
-			if ($query->num_rows() > 0) {
-				$current_categories = array_column($query->result_array(), 'cat_id');
-			}
-
-			$to_delete_categories = array_diff($current_categories, $categories);
-			$to_insert_categories = array_diff($categories, $current_categories);
-
-			// Delete unchecked categories
-			if (!empty($to_delete_categories)) {
-				$this->db->where('garage_id', $myid);
-				$this->db->where_in('cat_id', $to_delete_categories);
-				$this->db->delete('garage_cat');
-			}
-
-			// Insert newly checked categories
-			if (!empty($to_insert_categories)) {
-				$insert_categories = [];
-				foreach ($to_insert_categories as $category_id) {
-					$insert_categories[] = [
-						'garage_id' => $myid,
-						'cat_id' => $category_id,
-						'created_by' => $myid
-					];
-				}
-				$this->db->insert_batch('garage_cat', $insert_categories);
-			}
+		if ($_POST) {
+			$data = $this->input->post(); 
 			
-            $this->db->where('garage_id', $myid);
-	        $this->db->delete('garage_prod_cat');
+			unset($data['slim']);
+			unset($data['thumb_img']);
+			
+			// Unset categories and store them in a separate variable
+			$categories = isset($data['categories']) ? $data['categories'] : [];
+			$pp_categories = isset($data['pp_categories']) ? $data['pp_categories'] : [];
+			unset($data['categories']); // Remove categories from $data
+			unset($data['pp_categories']); // Remove categories from $data
+
+			// Process the thumbnail image
+			$th = Slim::getImages('thumb_img');
+			$name_th = $th[0]['input']['name'];
+			if ($name_th != $info->thumb) {
+				$data_th = $th[0]['output']['data'];
+				$file_th = Slim::saveFile($data_th, $name_th, 'uploads/garage/thumb');
+				// $data['thumb'] = $file_th['name'];
+				$data['thumb'] =base_url().'uploads/garage/thumb/'.$file_th['name'];
+			}
+
+			// Update the garage_mst table
+			$data['kyc_update_on'] = date('Y-m-d H:i:s');
+			$this->db->where('id', $myid);
+			$m = $this->db->update('garage_mst', $data);
+
+			// Insert categories into garage_cat table
+			if ($m) {
+				//delete those categories/services that are not checked by the garage
+				$query = $this->db->where('garage_id', $myid)->get('garage_cat');
+				$current_categories = [];
+
+				if ($query->num_rows() > 0) {
+					$current_categories = array_column($query->result_array(), 'cat_id');
+				}
+
+				$to_delete_categories = array_diff($current_categories, $categories);
+				$to_insert_categories = array_diff($categories, $current_categories);
+
+				// Delete unchecked categories
+				if (!empty($to_delete_categories)) {
+					$this->db->where('garage_id', $myid);
+					$this->db->where_in('cat_id', $to_delete_categories);
+					$this->db->delete('garage_cat');
+				}
+
+				// Insert newly checked categories
+				if (!empty($to_insert_categories)) {
+					$insert_categories = [];
+					foreach ($to_insert_categories as $category_id) {
+						$insert_categories[] = [
+							'garage_id' => $myid,
+							'cat_id' => $category_id,
+							'created_by' => $myid
+						];
+					}
+					$this->db->insert_batch('garage_cat', $insert_categories);
+				}
+				
+				$this->db->where('garage_id', $myid);
+				$this->db->delete('garage_prod_cat');
 
 
-            if (!empty($pp_categories)) {
-	                $insert_pp_categories = [];
-	                foreach ($pp_categories as $pp_category_id) {
-	                    $insert_pp_categories[] = [
-	                        'garage_id' => $myid,
-	                        'cat_id' => $pp_category_id,
-	                        'created_on' => date('Y-m-d H:i:s'),
-	                        'created_by' => $myid,  
-	                        
-	                    ];
-	                }
-	                $this->db->insert_batch('garage_prod_cat', $insert_pp_categories);
-	        }
+				if (!empty($pp_categories)) {
+						$insert_pp_categories = [];
+						foreach ($pp_categories as $pp_category_id) {
+							$insert_pp_categories[] = [
+								'garage_id' => $myid,
+								'cat_id' => $pp_category_id,
+								'created_on' => date('Y-m-d H:i:s'),
+								'created_by' => $myid,  
+								
+							];
+						}
+						$this->db->insert_batch('garage_prod_cat', $insert_pp_categories);
+				}
 
 
-            // Success message and redirect
-            $this->session->set_flashdata('success', 'Profile Updated Successfully');
-            redirect(base_url('mechanic/index'));
-        } else {
-            // Error message and redirect back
-            $this->session->set_flashdata('Error', 'Failed to Update Profile. Please try again.');
-            redirect(base_url('mechanic/editprofile'));
-        }
-    }
+				// Success message and redirect
+				$this->session->set_flashdata('success', 'Profile Updated Successfully');
+				redirect(base_url('mechanic/index'));
+			} else {
+				// Error message and redirect back
+				$this->session->set_flashdata('Error', 'Failed to Update Profile. Please try again.');
+				redirect(base_url('mechanic/editprofile'));
+			}
+		}
 
-    $this->load->view('mechanic/editprofile', $this->data);
-}
+    	$this->load->view('mechanic/editprofile', $this->data);
+	}
 
 
 

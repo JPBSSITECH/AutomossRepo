@@ -86,7 +86,7 @@
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <label>Name*</label>
+                                            <label>Service Name*</label>
                                             <div class="col-md-12">
                                                 <input type="text" name="name" value="<?=@$info->name ?>" required placeholder="Type something" class="form-control">
                                             </div>

@@ -54,7 +54,7 @@
                                                     ?>
                                                         <option <?=$sel ?> value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                                                         <?php 
-                                                            $myl2 = array_search_multidim($l2_categories, 'parent_id', $category->id);
+                                                            $myl2 = array_search_multidim($label_two_categories, 'parent_id', $category->id);
                                                             foreach ($myl2 as $kv) {
 
                                                                     $sel = '';
@@ -75,7 +75,7 @@
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <label>Name*</label>
+                                            <label>Subcategory Name*</label>
                                             <div class="col-md-12">
                                                 <input type="text" name="name" value="<?=@$info->name ?>" id="name"required placeholder="Type something" class="form-control">
                                             </div>
